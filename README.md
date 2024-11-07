@@ -5,4 +5,4 @@ https://docs.google.com/document/d/1iWBylqDT3FK49dC57z6nNB--IYjRWiFxAAMXMg52ZkE/
  
 
 # Live Site 
-https://seopageindrojit-task1.surge.sh/
+https://jade-concha-2a6359.netlify.app/
