@@ -16,9 +16,22 @@ const Child = () => {
     const openModal = () => setIsModalOpen(true);
 
 
+    
+    const [selectedFiles, setSelectedFiles] = useState([]);
+
+    const handleFileChange = (event) => {
+        const files = Array.from(event.target.files).map((file) => ({
+            name: file.name,
+            extension: file.name.split('.').pop()
+        }));
+        setSelectedFiles(files);
+    };
     const closeModal = () => {
 
         setIsModalOpen(false);
+        console.log(selectedFiles);
+
+        
 
 
     }
@@ -26,7 +39,7 @@ const Child = () => {
         <>
             <div className='child-1 px-2 py-4 w-[400px] border border-red bg-gray-100 '>
 
-               
+
 
                 <div className='bg-white p-4 space-y-3'>
 
@@ -80,7 +93,7 @@ const Child = () => {
                         <div className='flex items-center '>
 
                             <button onClick={openModal} > <MdOutlineAttachFile className='rotate-45' />  </button>
-                            <h3>25</h3>
+                            <h3>{selectedFiles.length}</h3>
                         </div>
 
                         <div className='flex items-center gap-1 '>
@@ -99,29 +112,40 @@ const Child = () => {
             </div>
 
             <Modal isOpen={isModalOpen} onClose={closeModal}>
-                {/* <img className='mx-auto' src={modalImage} alt="" /> */}
-                <h2 className='text-xl font-bold text-center'>Upload Documents</h2>
+            <h2 className='text-xl font-bold text-center'>Upload Documents</h2>
 
-                <div className='my-10 space-y-2'>
-                    <input
-                        type="file"
-                        className="border  border-gray  w-full max-w-xs" />
-                    <input
-                        type="file"
-                        className="border  border-gray  w-full max-w-xs" />
-                    <input
-                        type="file"
-                        className="border  border-gray  w-full max-w-xs" />
+            <div className='my-10 space-y-2'>
+                <input
+                    type="file"
+                    multiple
+                    className="border border-gray w-full max-w-xs"
+                    onChange={handleFileChange}
+                />
 
-
-
+                {/* Display selected file names and extensions */}
+                <div className='mt-4'>
+                    {selectedFiles.length > 0 ? (
+                        <ul className="space-y-1">
+                            {selectedFiles.map((file, index) => (
+                                <li key={index} className="text-gray-700">
+                                    {file.name} <span className="text-gray-500">({file.extension})</span>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-gray-500">No files selected</p>
+                    )}
                 </div>
+            </div>
 
+            <button
+                className='mt-3 border w-full rounded-[32px] px-4 py-2 border-gray-200 bg-gray-200 text-center font-bold'
+                onClick={closeModal}
+            >
+                Close
+            </button>
+        </Modal>
 
-                <button className='mt-3 border w-full rounded-[32px] px-4 py-2 border-gray-200 bg-gray-200 text-center font-bold' onClick={closeModal}>Close</button>
-
-
-            </Modal>
         </>
     );
 };
